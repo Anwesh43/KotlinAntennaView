@@ -3,6 +3,7 @@ package ui.anwesome.com.antennaview
 /**
  * Created by anweshmishra on 31/01/18.
  */
+import android.app.Activity
 import android.view.*
 import android.graphics.*
 import android.content.*
@@ -117,6 +118,13 @@ class AntennaView(ctx:Context):View(ctx) {
             antenna?.startUpdating {
                 animator.start()
             }
+        }
+    }
+    companion object {
+        fun create(activity:Activity):AntennaView {
+            val view = AntennaView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
