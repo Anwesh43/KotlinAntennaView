@@ -95,4 +95,28 @@ class AntennaView(ctx:Context):View(ctx) {
             state.startUpdating(startcb)
         }
     }
+    data class AntennaRenderer(var view:AntennaView,var time:Int = 0) {
+        var antenna:Antenna?=null
+        val animator = Animator(view)
+        fun render(canvas:Canvas,paint:Paint) {
+            if(time == 0) {
+                val w = canvas.width.toFloat()
+                val h = canvas.height.toFloat()
+                antenna = Antenna(w,h)
+            }
+            canvas.drawColor(Color.parseColor("#212121"))
+            antenna?.draw(canvas,paint)
+            time++
+            animator.animate {
+                antenna?.update {
+                    animator.stop()
+                }
+            }
+        }
+        fun handleTap() {
+            antenna?.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
