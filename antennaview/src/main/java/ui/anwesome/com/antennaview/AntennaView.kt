@@ -70,11 +70,11 @@ class AntennaView(ctx:Context):View(ctx) {
             canvas.translate(w/2,h/2)
             canvas.rotate(-90f*state.scale+45)
             paint.style = Paint.Style.STROKE
-            canvas.drawCircle(0f,-h/20,h/20,paint)
+            canvas.drawCircle(0f,-w/40,w/40,paint)
             val path = Path()
             for(i in 60..120) {
                 val x = (w/3)*Math.cos(i*Math.PI/180).toFloat()
-                val y = -(h/20+w/3) + (w/3)*Math.sin(i*Math.PI/180).toFloat()
+                val y = -(w/20+w/3) + (w/3)*Math.sin(i*Math.PI/180).toFloat()
                 if(i == 60) {
                     path.moveTo(x,y)
                 }
@@ -83,11 +83,11 @@ class AntennaView(ctx:Context):View(ctx) {
                 }
             }
             val fx = (w/3)*Math.cos(Math.PI/3).toFloat()
-            val fy = -(h/20+w/3) + (w/3)*Math.sin(Math.PI/3).toFloat()
+            val fy = -(w/20+w/3) + (w/3)*Math.sin(Math.PI/3).toFloat()
             path.lineTo(fx,fy)
             canvas.drawPath(path,paint)
             canvas.drawLine(0f,fy,0f,fy-w/4,paint)
-            canvas.drawCircle(0f,fy-w/4-h/20,h/20,paint)
+            canvas.drawCircle(0f,fy-w/4-w/40,w/40,paint)
             canvas.restore()
         }
         fun update(stopcb:(Float)->Unit) {
@@ -105,6 +105,9 @@ class AntennaView(ctx:Context):View(ctx) {
                 val w = canvas.width.toFloat()
                 val h = canvas.height.toFloat()
                 antenna = Antenna(w,h)
+                paint.color = Color.parseColor("#4527A0")
+                paint.strokeWidth = Math.min(w,h)/45
+                paint.strokeCap = Paint.Cap.ROUND
             }
             canvas.drawColor(Color.parseColor("#212121"))
             antenna?.draw(canvas,paint)
